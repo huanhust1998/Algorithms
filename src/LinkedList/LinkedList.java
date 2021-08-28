@@ -120,6 +120,44 @@ public class LinkedList {
 
     }
 
+    //III. Tìm chiều dài của mảng
+    public int countLength() {
+        int count = 0;
+
+        Node n = head;
+        while (n != null) {
+            n = n.next;
+            count++;
+        }
+        return count;
+    }
+
+    public int getCount(Node node) {
+        if (node == null)
+            return 0;
+        return 1 + getCount(node.next);
+    }
+
+    public int getCount1() {
+        return getCount(head);
+    }
+
+    //Tìm phần tử trong danh sách
+    public boolean search1(int key) {
+        Node n = head;
+        while (n != null) {
+            if (n.data == key) return true;
+            n = n.next;
+        }
+        return false;
+    }
+
+    public boolean search2(Node node, int key) {
+        if (node == null) return false;
+        if (node.data == key) return true;
+        return search2(node.next, key);
+    }
+
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
 
@@ -136,6 +174,10 @@ public class LinkedList {
         linkedList.append(100000);
         linkedList.deleteHead();
         linkedList.deleteNode(2);
+        System.out.println("Length of linked list: " + linkedList.countLength());
+        System.out.println("Length of linked list: " + linkedList.getCount1());
+        System.out.println("True or false: " + linkedList.search1(100));
+        System.out.println("True or false: " + linkedList.search2(linkedList.head, 10));
         linkedList.printNode();
     }
 }

@@ -158,6 +158,33 @@ public class LinkedList {
         return search2(node.next, key);
     }
 
+    // Đảo ngược danh sách
+    // sử dụng vòng lặp
+    public Node reverse(Node node) {
+        Node prev = null;
+        Node current = node;
+        Node next;
+
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        node = prev;
+        return node;
+    }
+
+    // sử dụng đệ quy
+    public Node reverse1(Node node) {
+        if (node == null || node.next == null)
+            return node;
+        Node rest = reverse1(node.next);
+        node.next.next = node;
+        node.next = null;
+        return rest;
+    }
+
     public static void main(String[] args) {
         LinkedList linkedList = new LinkedList();
 
@@ -172,12 +199,25 @@ public class LinkedList {
         linkedList.insertAfter(first, 100);
         linkedList.insertBefore(first, 1000);
         linkedList.append(100000);
-        linkedList.deleteHead();
-        linkedList.deleteNode(2);
-        System.out.println("Length of linked list: " + linkedList.countLength());
+        linkedList.printNode();
+        System.out.println("=========");
+        /*linkedList.deleteHead();
+        linkedList.deleteNode(2);*/
+        /*System.out.println("Length of linked list: " + linkedList.countLength());
         System.out.println("Length of linked list: " + linkedList.getCount1());
         System.out.println("True or false: " + linkedList.search1(100));
         System.out.println("True or false: " + linkedList.search2(linkedList.head, 10));
         linkedList.printNode();
+        System.out.println("=========");
+        Node n = linkedList.reverse(linkedList.head);
+        while (n != null) {
+            System.out.println(n.data + " " + n);
+            n = n.next;
+        }*/
+        Node n = linkedList.reverse1(linkedList.head);
+        while (n != null) {
+            System.out.println(n.data + " " + n);
+            n = n.next;
+        }
     }
 }
